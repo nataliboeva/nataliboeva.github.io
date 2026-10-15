@@ -25,20 +25,22 @@ export function Experience() {
                       </a>
                     ) : (
                       job.company
-                    )}{' '}
-                    · {job.summary}
+                    )}
+                    {job.summary && ` · ${job.summary}`}
                   </p>
                 </div>
                 <p className="rounded-full bg-accent-soft px-3 py-1 font-mono text-xs text-accent">{job.period}</p>
               </div>
-              <ul className="mt-5 space-y-2.5 text-muted">
-                {job.points.map((point) => (
-                  <li key={point} className="flex gap-3">
-                    <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
+              {job.points && (
+                <ul className="mt-5 space-y-2.5 text-muted">
+                  {job.points.map((point) => (
+                    <li key={point} className="flex gap-3">
+                      <span className="mt-2.5 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              )}
               <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies">
                 {job.tags.map((tag) => (
                   <Tag key={tag}>{tag}</Tag>

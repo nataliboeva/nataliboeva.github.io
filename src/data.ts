@@ -18,8 +18,8 @@ export type Experience = {
   company: string
   companyUrl?: string
   period: string
-  summary: string
-  points: string[]
+  summary?: string
+  points?: string[]
   tags: string[]
 }
 
@@ -29,12 +29,7 @@ export const experience: Experience[] = [
     company: 'Infonetica',
     companyUrl: 'https://www.infonetica.net',
     period: 'Feb 2026 – Present',
-    summary: 'SaaS software for research institutions.',
-    points: [
-      'Build features across a .NET backend and a React + TypeScript frontend.',
-      'Work in a team with code review, CI pipelines and automated tests on every change.',
-    ],
-    tags: ['C#', 'ASP.NET Core', 'React', 'TypeScript', 'TanStack Query', 'Azure'],
+    tags: ['C#', 'ASP.NET Core', 'React', 'TypeScript', 'Azure'],
   },
 ]
 
