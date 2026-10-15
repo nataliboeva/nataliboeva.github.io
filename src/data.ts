@@ -39,8 +39,8 @@ export const experience: Experience[] = [
 ]
 
 export type Preview =
-  | { type: 'image'; src: string; alt: string }
-  | { type: 'illustration'; id: 'splitly' | 'matchday' | 'bg-identifiers' | 'ethicaflow' }
+  | { type: 'image'; src: string; srcDark?: string; alt: string; fit?: 'cover' | 'contain' }
+  | { type: 'illustration'; id: 'bg-identifiers' | 'ethicaflow' }
 
 export type Project = {
   name: string
@@ -59,16 +59,21 @@ export const projects: Project[] = [
     name: 'Splitly',
     tagline: 'Shared expenses, settled fairly',
     description:
-      'A full-stack app for splitting group expenses: trips, flat bills, dinners. Every split adds up to the cent, and the app works out the fewest transfers needed to settle everyone up.',
+      'A full-stack app for splitting group expenses: trips, flat bills, dinners. Every split adds up to the cent, and debt simplification turns a tangle of IOUs into a short list of transfers.',
     highlights: [
-      'Debt-simplification algorithm, covered by property-based tests',
+      'Greedy debt simplification (at most n − 1 transfers), covered by property-based tests',
       'Equal, exact, percentage and share-based splits with deterministic rounding',
       'Typed React client with TanStack Query, one-command Docker setup',
     ],
     tags: ['ASP.NET Core 10', 'EF Core', 'PostgreSQL', 'React 19', 'TypeScript', 'Docker'],
     repo: 'https://github.com/nataliboeva/splitly',
     featured: true,
-    preview: { type: 'illustration', id: 'splitly' },
+    preview: {
+      type: 'image',
+      src: '/projects/splitly.webp',
+      srcDark: '/projects/splitly-dark.webp',
+      alt: 'Splitly group page with expenses, balances and settle-up suggestions',
+    },
   },
   {
     name: 'MatchDay',
@@ -83,7 +88,12 @@ export const projects: Project[] = [
     tags: ['.NET Aspire', 'Redis', 'RabbitMQ', 'PostgreSQL', 'OpenTelemetry'],
     repo: 'https://github.com/nataliboeva/matchday',
     featured: true,
-    preview: { type: 'illustration', id: 'matchday' },
+    preview: {
+      type: 'image',
+      src: '/projects/matchday.webp',
+      alt: 'Aspire dashboard trace of one booking across the booking API, Redis, PostgreSQL, RabbitMQ and the notifications worker',
+      fit: 'contain',
+    },
   },
   {
     name: 'BgIdentifiers',
