@@ -3,35 +3,63 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --bg: #faf9fc;
+  --bg: #fbfbfd;
   --surface: #ffffff;
-  --border: #e6e3ef;
-  --text: #17141f;
-  --muted: #5d586b;
+  --surface-2: #f5f4f9;
+  --border: #e7e5ef;
+  --text: #14121c;
+  --muted: #5f5a6e;
   --accent: #5b3fd1;
+  --accent-2: #2f7ef0;
   --accent-soft: #efebfd;
+  --positive: #0f8a5f;
+  --negative: #c2410c;
+  --code-keyword: #7c3aed;
+  --code-type: #0369a1;
+  --code-string: #15803d;
+  --code-comment: #8a8599;
+  --grid-line: rgb(20 18 28 / 0.06);
+  --glow: rgb(91 63 209 / 0.18);
 }
 
 .dark {
-  --bg: #0d0b14;
-  --surface: #16131f;
-  --border: #2a2638;
-  --text: #ece9f4;
-  --muted: #a49fb4;
-  --accent: #a891ff;
-  --accent-soft: #221c38;
+  --bg: #0b0a10;
+  --surface: #13111a;
+  --surface-2: #1a1724;
+  --border: #272432;
+  --text: #edebf3;
+  --muted: #9f9aae;
+  --accent: #a48bff;
+  --accent-2: #6aa8ff;
+  --accent-soft: #211b36;
+  --positive: #4ade80;
+  --negative: #fb923c;
+  --code-keyword: #c4a7ff;
+  --code-type: #7dd3fc;
+  --code-string: #86efac;
+  --code-comment: #6f6a80;
+  --grid-line: rgb(237 235 243 / 0.05);
+  --glow: rgb(164 139 255 / 0.16);
 }
 
 @theme inline {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, monospace;
   --color-bg: var(--bg);
   --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
   --color-border: var(--border);
   --color-text: var(--text);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
   --color-accent-soft: var(--accent-soft);
+  --color-positive: var(--positive);
+  --color-negative: var(--negative);
+  --color-code-keyword: var(--code-keyword);
+  --color-code-type: var(--code-type);
+  --color-code-string: var(--code-string);
+  --color-code-comment: var(--code-comment);
 }
 
 html {
@@ -40,11 +68,55 @@ html {
 }
 
 body {
-  @apply bg-bg text-text font-sans antialiased;
+  @apply bg-bg font-sans text-text antialiased;
+  font-feature-settings: "ss01", "cv11";
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text);
 }
 
 :focus-visible {
   @apply outline-2 outline-offset-2 outline-accent;
+}
+
+/* Faint grid behind the hero that fades out towards the edges. */
+.hero-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 30%, transparent 75%);
+}
+
+.hero-glow {
+  background: radial-gradient(closest-side, var(--glow), transparent);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, var(--accent) 10%, var(--accent-2) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Scroll-driven fade-in. Browsers without support simply show the content. */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 30%;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

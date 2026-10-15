@@ -6,7 +6,7 @@ import { projects } from './data'
 describe('App', () => {
   it('renders every main section', () => {
     render(<App />)
-    for (const name of ['Experience', 'Projects', 'Skills', 'Education', 'Contact']) {
+    for (const name of ['Where I work', "Things I've built", 'Tools I use', 'Always learning', "Let's talk"]) {
       expect(screen.getByRole('heading', { level: 2, name })).toBeInTheDocument()
     }
   })

@@ -1,7 +1,8 @@
 export const profile = {
   name: 'Natali Boeva',
   role: 'Junior Software Engineer',
-  headline: 'I build full-stack web applications with .NET and React/TypeScript.',
+  company: 'Infonetica',
+  headline: 'Full-stack engineer building with .NET and React.',
   intro:
     'I work across the whole stack, from ASP.NET Core APIs and EF Core data models to typed React frontends. I care about the parts that make software trustworthy: tests, clear domain logic and code the next person can read.',
   location: 'Plovdiv, Bulgaria',
@@ -17,6 +18,7 @@ export type Experience = {
   company: string
   companyUrl?: string
   period: string
+  summary: string
   points: string[]
   tags: string[]
 }
@@ -27,22 +29,29 @@ export const experience: Experience[] = [
     company: 'Infonetica',
     companyUrl: 'https://www.infonetica.net',
     period: 'Feb 2026 – Present',
+    summary: 'SaaS software for research institutions.',
     points: [
-      'Build features across a .NET backend and a React + TypeScript frontend for a SaaS platform used by research institutions.',
+      'Build features across a .NET backend and a React + TypeScript frontend.',
       'Work in a team with code review, CI pipelines and automated tests on every change.',
     ],
     tags: ['C#', 'ASP.NET Core', 'React', 'TypeScript', 'TanStack Query', 'Azure'],
   },
 ]
 
+export type Preview =
+  | { type: 'image'; src: string; alt: string }
+  | { type: 'illustration'; id: 'splitly' | 'matchday' | 'bg-identifiers' | 'ethicaflow' }
+
 export type Project = {
   name: string
   tagline: string
   description: string
+  highlights?: string[]
   tags: string[]
   repo: string
   demo?: string
   featured?: boolean
+  preview: Preview
 }
 
 export const projects: Project[] = [
@@ -50,44 +59,73 @@ export const projects: Project[] = [
     name: 'Splitly',
     tagline: 'Shared expenses, settled fairly',
     description:
-      'Full-stack app for splitting group expenses. Splits always add up to the cent, and a debt-simplification algorithm reduces "who owes whom" to the fewest possible transfers.',
-    tags: ['ASP.NET Core 10', 'EF Core', 'PostgreSQL', 'React 19', 'TypeScript', 'TanStack Query', 'Docker'],
+      'A full-stack app for splitting group expenses: trips, flat bills, dinners. Every split adds up to the cent, and the app works out the fewest transfers needed to settle everyone up.',
+    highlights: [
+      'Debt-simplification algorithm, covered by property-based tests',
+      'Equal, exact, percentage and share-based splits with deterministic rounding',
+      'Typed React client with TanStack Query, one-command Docker setup',
+    ],
+    tags: ['ASP.NET Core 10', 'EF Core', 'PostgreSQL', 'React 19', 'TypeScript', 'Docker'],
     repo: 'https://github.com/nataliboeva/splitly',
     featured: true,
+    preview: { type: 'illustration', id: 'splitly' },
   },
   {
     name: 'MatchDay',
     tagline: 'Cloud-native football ticketing',
     description:
-      'Distributed ticketing system orchestrated with .NET Aspire. Seats are held in Redis, bookings are confirmed idempotently, and e-tickets are delivered over RabbitMQ, all visible as one end-to-end trace.',
+      'A distributed ticketing platform orchestrated with .NET Aspire. Seats are held in Redis, bookings are confirmed idempotently and e-tickets are delivered over RabbitMQ.',
+    highlights: [
+      'One end-to-end trace across HTTP calls and message queues',
+      'Race-free seat holds with expiry, idempotent booking confirmation',
+      'Integration tests that start the whole system with Aspire',
+    ],
     tags: ['.NET Aspire', 'Redis', 'RabbitMQ', 'PostgreSQL', 'OpenTelemetry'],
     repo: 'https://github.com/nataliboeva/matchday',
     featured: true,
+    preview: { type: 'illustration', id: 'matchday' },
   },
   {
     name: 'BgIdentifiers',
     tagline: 'Open-source NuGet package',
     description:
-      'Fast, allocation-free validation and parsing of EGN, LNCh, EIK/BULSTAT, VAT and IBAN numbers, with FluentValidation and DataAnnotations support and property-based tests.',
+      'A small, fast library that validates and parses Bulgarian identifiers: EGN, LNCh, EIK/BULSTAT, VAT and IBAN numbers, ready for ASP.NET Core validation.',
+    highlights: [
+      'Allocation-free validation on ReadOnlySpan<char>',
+      'FluentValidation rules and DataAnnotations attributes',
+      'Property-based tests, benchmarks and automated releases to NuGet',
+    ],
     tags: ['.NET 8 / 10', 'NuGet', 'xUnit', 'BenchmarkDotNet', 'GitHub Actions'],
     repo: 'https://github.com/nataliboeva/bg-identifiers',
     featured: true,
+    preview: { type: 'illustration', id: 'bg-identifiers' },
   },
   {
     name: 'Travellark',
     tagline: 'Personal travel journal',
     description:
       'Track visited and wishlist destinations on an interactive map, with live search, filtering and a statistics dashboard.',
-    tags: ['ASP.NET Core 8 MVC', 'EF Core', 'Leaflet', 'Identity'],
+    tags: ['ASP.NET Core 8 MVC', 'EF Core', 'Leaflet'],
     repo: 'https://github.com/nataliboeva/Travellark',
+    preview: { type: 'image', src: '/projects/travellark.webp', alt: 'Travellark world map with visited and wishlist pins' },
   },
   {
     name: 'EthicaFlow',
     tagline: 'Ethics review workflow',
     description:
       'Role-based workflow for research ethics applications: researchers submit, reviewers assess and request revisions, admins assign and oversee.',
-    tags: ['ASP.NET Core MVC', 'EF Core', 'Identity', 'SQL Server'],
+    tags: ['ASP.NET Core MVC', 'EF Core', 'Identity'],
     repo: 'https://github.com/nataliboeva/EthicaFlow',
+    preview: { type: 'illustration', id: 'ethicaflow' },
+  },
+  {
+    name: 'Fitessa',
+    tagline: 'Workout planner',
+    description:
+      'Browse exercises, build personal workout plans and manage content from an admin area. My SoftUni project defense.',
+    tags: ['ASP.NET Core MVC', 'EF Core', 'SQL Server'],
+    repo: 'https://github.com/nataliboeva/Fitessa',
+    preview: { type: 'image', src: '/projects/fitessa.webp', alt: 'Fitessa landing page' },
   },
   {
     name: 'EduCode',
@@ -97,14 +135,29 @@ export const projects: Project[] = [
     tags: ['JavaScript', 'HTML', 'CSS'],
     repo: 'https://github.com/nataliboeva/EduCode',
     demo: 'https://educode-bx5z.onrender.com',
+    preview: { type: 'image', src: '/projects/educode.webp', alt: 'EduCode home page' },
   },
 ]
 
+export const coreStack = [
+  { name: 'C#', icon: 'csharp' },
+  { name: '.NET', icon: 'dotnetcore' },
+  { name: 'React', icon: 'react' },
+  { name: 'TypeScript', icon: 'typescript' },
+  { name: 'SQL Server', icon: 'microsoftsqlserver' },
+  { name: 'PostgreSQL', icon: 'postgresql' },
+  { name: 'Redis', icon: 'redis' },
+  { name: 'RabbitMQ', icon: 'rabbitmq' },
+  { name: 'Docker', icon: 'docker' },
+  { name: 'Azure', icon: 'azure' },
+  { name: 'GitHub Actions', icon: 'githubactions' },
+  { name: 'Tailwind CSS', icon: 'tailwindcss' },
+]
+
 export const skills: { group: string; items: string[] }[] = [
-  { group: 'Backend', items: ['C#', '.NET / ASP.NET Core', 'Entity Framework Core', 'REST APIs', '.NET Aspire'] },
-  { group: 'Frontend', items: ['React', 'TypeScript', 'TanStack Query', 'React Hook Form + Zod', 'Tailwind CSS', 'Vite'] },
-  { group: 'Data', items: ['SQL Server', 'PostgreSQL', 'Redis', 'RabbitMQ'] },
-  { group: 'Quality & delivery', items: ['xUnit', 'Vitest', 'Testcontainers', 'Docker', 'GitHub Actions', 'Azure', 'Git'] },
+  { group: 'Backend', items: ['ASP.NET Core', 'Minimal APIs', 'Entity Framework Core', '.NET Aspire', 'REST', 'OpenTelemetry'] },
+  { group: 'Frontend', items: ['React', 'TypeScript', 'TanStack Query', 'React Hook Form', 'Zod', 'Vite'] },
+  { group: 'Testing & delivery', items: ['xUnit', 'Vitest', 'Testing Library', 'Testcontainers', 'GitHub Actions', 'Git'] },
 ]
 
 export const education = [
