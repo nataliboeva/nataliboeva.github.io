@@ -23,7 +23,13 @@ export function Education() {
       <div className="reveal mt-10 rounded-2xl border border-border bg-surface p-6 shadow-sm sm:p-8">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h3 className="font-semibold tracking-tight">SoftUni certificates</h3>
-          <p className="text-sm text-muted">{certificates.length} verified certificates</p>
+          <a
+            href="https://github.com/nataliboeva/softuni-courses"
+            className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
+          >
+            Course exercises on GitHub
+            <ArrowUpRight className="size-3.5" aria-hidden="true" />
+          </a>
         </div>
         <ul className="mt-5 grid gap-x-10 sm:grid-cols-2">
           {certificates.map((cert) => (
